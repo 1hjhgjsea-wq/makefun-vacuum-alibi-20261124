@@ -16,6 +16,19 @@ LINE = (
     "and I do not vacuum my coworkers."
 )
 
+
+def validate(line: str) -> None:
+    """Enforce the brief's gate at run time: one non-empty line, 1-200 chars."""
+    if not line:
+        raise ValueError("entry line must not be empty")
+    if "\n" in line or "\r" in line:
+        raise ValueError("entry line must be a single line")
+    if not 1 <= len(line) <= 200:
+        raise ValueError(f"entry line must be 1-200 characters, got {len(line)}")
+
+
+validate(LINE)
+
 # The grader gives us a writable /output, but create it anyway so a local
 # run (MAKEFUN_OUTPUT_DIR=out) works from a clean checkout too.
 OUT_DIR.mkdir(parents=True, exist_ok=True)
